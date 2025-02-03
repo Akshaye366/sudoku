@@ -104,11 +104,6 @@ class MasterSudoku:
         self.window.destroy()
 
 
-
-
-
-        
-
-
-app = MasterSudoku()
-app.runGame()
+if __name__ == "__main__":
+    app = MasterSudoku()
+    app.runGame()
