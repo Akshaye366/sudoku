@@ -108,43 +108,24 @@ class SettingsPage(Frame):
             self.slider.set(self.settings.getTimer())
 
         def save(): #Save settings button command
-            """ 
-            theme = self.themeoptions.index(self.combobox.get())#Gets selects theme chosen   
-               
-            cursor.execute("UPDATE users SET Themechoice = ? WHERE username = ?", (theme, str(username),))#Updates value in the database for theme
-            if var0.get() or var0.get() == 0:#If combobox is updated or not
-                if username != "Guest":
-                    hintschoice = var0.get()#Hints chosen value
-                    cursor.execute("UPDATE users SET allowedHints = ? WHERE username = ?", (hintschoice, str(username),))#Update hints fields
-                else:
-                    guestHints = var0.get()#Guest hints
-            if username != "Guest":
-                userDifficulty = difficulties.index(combobox2.get())
-                cursor.execute("UPDATE users SET Difficulty = ? WHERE username = ?", (userDifficulty, str(username),))#Update Difficulty fields
-            else:
-                guestDifficulty = difficulties.index(combobox2.get())
-            if username != "Guest":
-                userTimer = slider.get()
-                cursor.execute("UPDATE users SET Timer = ? WHERE username = ?", (userTimer, str(username),))
-            else:
-                guestTimer = slider.get()
-            
-            conn.commit()
-            conn.close()#Close database"""
             print("\nALL:")
             conn = sqlite3.connect('user.db')#Opens database
             cursor = conn.cursor()    
-            theme = self.themeoptions.index(self.combobox.get())
+
+            #theme = self.themeoptions.index(self.combobox.get())   -   Themes currently not working
+            
             hints = self.var0.get()
             difficulty = config.DIFFICULTIES.index(self.combobox2.get())
             timer = self.slider.get()
-            self.settings.setTheme(theme)
+
+            #self.settings.setTheme(theme)
+            
             self.settings.setHints(hints)
             self.settings.setDifficulty(difficulty)
             self.settings.setTimer(timer)
             print(self.settings.getAllSettings())
             if config.getUsername() != None:
-                cursor.execute("UPDATE users SET theme = ? WHERE username = ?", (theme, str(config.getUsername()),))#Updates theme field
+                #cursor.execute("UPDATE users SET theme = ? WHERE username = ?", (theme, str(config.getUsername()),))#Updates theme field
                 cursor.execute("UPDATE users SET hints = ? WHERE username = ?", (hints, str(config.getUsername()),))#Update hints field
                 cursor.execute("UPDATE users SET difficulty = ? WHERE username = ?", (difficulty, str(config.getUsername()),))#Update difficulty field
                 cursor.execute("UPDATE users SET timer = ? WHERE username = ?", (timer, str(config.getUsername()),))#Update timer field 
@@ -158,3 +139,9 @@ class SettingsPage(Frame):
         label2 = tk.Button(self.frame, image=test, command=save, border=False)
         label2.image = test
         label2.place(x=500, y=534)
+
+        # -- THEMES CURRENTLY NOT WORKING LABEL-- #
+        self.notice = tk.Label(self.frame, text="NOTICE:", fg='black', font=("Helvetica", 13, "bold"))
+        self.notice.place(x=50, y=550)
+        self.notice = tk.Label(self.frame, text="Themes feature is coming soon.", fg='black', font=("Helvetica", 13))
+        self.notice.place(x=112, y=550)
